@@ -31,7 +31,10 @@ export default createStore({
     },
 
     removeFromBag({commit}, product) {
-      commit('removeFromBag', product)
+      if (confirm('Você tem certeza que deseja remover este produto?')){
+        commit('removeFromBag', product)
+      }
+      
     }
 
 
