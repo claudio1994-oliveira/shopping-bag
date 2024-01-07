@@ -13,6 +13,9 @@
       this.$store.dispatch('loadProducts')
     },
     computed: {
+      products () {
+        return this.$store.state.products
+      },
       productsInBag () {
         return this.$store.state.productsInBag
       }
