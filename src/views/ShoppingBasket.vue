@@ -1,22 +1,29 @@
 <template>
   <div class="basket">
     <div class="items">
-      <div v-for="(product, index) in this.productsInBag" :key="index">
-        <div class="item">
-          <div class="remove" @click="this.$store.dispatch('removeFromBag', product)">Remover Produto</div>
-          <div class="photo"><img :src="product.image" alt=""></div>
-          <div class="description">{{ product.title }} </div>
-          <div class="price">
-            <span class="quantity-area">
-              <button :disabled="product.quantity <=1" @click="product.quantity--">-</button>
-              <span class="quantity">{{ product.quantity }}</span>
-              <button @click="product.quantity++">+</button>
-            </span>
-            <span class="amount">R$ {{ (product.price * product.quantity).toFixed(2) }}</span>
+      <template v-if="productsInBag.length">
+        <div v-for="(product, index) in this.productsInBag" :key="index">
+          <div class="item">
+            <div class="remove" @click="this.$store.dispatch('removeFromBag', product)">Remover Produto</div>
+            <div class="photo"><img :src="product.image" alt=""></div>
+            <div class="description">{{ product.title }} </div>
+            <div class="price">
+              <span class="quantity-area">
+                <button :disabled="product.quantity <=1" @click="product.quantity--">-</button>
+                <span class="quantity">{{ product.quantity }}</span>
+                <button @click="product.quantity++">+</button>
+              </span>
+              <span class="amount">R$ {{ (product.price * product.quantity).toFixed(2) }}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="grand-total"> Total do pedido: R$ 22.30</div>
+        <div class="grand-total"> Total do pedido: R$ 22.30</div>
+      </template>
+
+      <template v-else>
+       <h4>Ainda não existem produtos no carrinho!</h4>
+      </template>
+      
 
     </div>
   </div>
@@ -29,6 +36,7 @@ export default {
   name: 'ShoppingBasket',
 
   methods: {
+
    
   },
   computed: mapState(['productsInBag']),
