@@ -8,7 +8,7 @@
         <h4>{{ product.title  }}</h4>
         <p class="price">R$ {{ product.price.toFixed(2) }}</p>
         <button v-if="!isInBag(product)" @click="addToBag(product)">Adicionar ao carrinho</button>
-        <button v-else class="remove">Remover do carrinho</button>
+        <button v-else class="remove" @click="removeFromBag(product)">Remover do carrinho</button>
       </div>
     </div>
       
@@ -45,6 +45,9 @@ export default {
     isInBag(product) {
       return this.productsInBag.find(item => item.id === product.id)
     },
+    removeFromBag(product) {
+      this.$store.dispatch('removeFromBag', product)
+    }
   }
 }
 </script>
